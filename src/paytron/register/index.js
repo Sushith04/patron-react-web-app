@@ -85,7 +85,7 @@ const RegisterComponent = () => {
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label>What do you want to register as?
+                                    <label>Who do you want to register as?
                                         <select
                                             className="form-control"
                                             id="designation"

@@ -24,6 +24,22 @@ const LoginComponent = () => {
                                         width="200" alt="profile"/>
                                 </div>
                                 <div className="mb-3">
+                                    <label>Who do you want to login as?
+                                        <select
+                                            className="form-control"
+                                            id="designation"
+                                            name="Your Designation"
+                                            type="text"
+                                            placeholder="Your Designation"
+                                            required>
+                                            <option value="">Please Select</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="NGO">NGO</option>
+                                            <option value="Donor">Donor</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div className="mb-3">
                                     <input type="text" className="form-control" id="login-user"
                                            aria-describedby="userHelp" placeholder="Username" required/>
                                 </div>
