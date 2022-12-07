@@ -5,17 +5,11 @@ import Navigation from "../navigation";
 import ProfileComponent from "./profile";
 import SearchComponent from "./search";
 import EditProfileComponent from "./edit-profile";
-import {configureStore} from '@reduxjs/toolkit';
-import {Provider} from "react-redux";
-import requestsReducer from "./requests/requests-reducer";
-import interestsReducer from "./interests/interests-reducer";
 import InterestsList from "./interests/interests-list";
-
-const store = configureStore({reducer: {interests: interestsReducer, requests: requestsReducer}});
+import ProtectedRoute from "./protected-routes";
 
 function Paytron() {
     return (
-        <Provider store={store}>
             <div>
                 <div className="row">
                     <div className="col-2 col-lg-1 col-xl-2">
@@ -26,9 +20,17 @@ function Paytron() {
                         <Routes>
                             <Route index element={<HomeComponent/>}/>
                             <Route path="home" element={<HomeComponent/>}/>
-                            <Route path="profile" element={<ProfileComponent/>}/>
+                            <Route path="profile" element={
+                                <ProtectedRoute>
+                                    <ProfileComponent/>
+                                </ProtectedRoute>}/>
+                            }/>
                             <Route path="search" element={<SearchComponent/>}/>
-                            <Route path="edit-profile" element={<EditProfileComponent/>}/>
+                            <Route path="edit-profile" element={
+                                <ProtectedRoute>
+                                    <EditProfileComponent/>
+                                </ProtectedRoute>}/>
+                            }/>
                         </Routes>
                     </div>
                     <div className="d-none d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4"
@@ -37,7 +39,6 @@ function Paytron() {
                     </div>
                 </div>
             </div>
-        </Provider>
     );
 }
 
