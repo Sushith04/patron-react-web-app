@@ -2,6 +2,9 @@ import React from "react";
 import {Route, Routes} from "react-router";
 import HomeComponent from "./home";
 import Navigation from "../navigation";
+import ProfileComponent from "./profile";
+import SearchComponent from "./search";
+import EditProfileComponent from "./edit-profile";
 // import {configureStore} from '@reduxjs/toolkit';
 // import {Provider} from "react-redux";
 
@@ -20,9 +23,10 @@ function Tuiter() {
                          style={{"position": "relative"}}>
                         <Routes>
                             <Route index element={<HomeComponent/>}/>
-                            {/*<Route path="ho" element={<ExploreComponent/>}/>*/}
-                            {/*<Route path="profile" element={<ProfileComponent/>}/>*/}
-                            {/*<Route path="edit-profile" element={<EditProfileComponent/>}/>*/}
+                            <Route path="home" element={<HomeComponent/>}/>
+                            <Route path="profile" element={<ProfileComponent/>}/>
+                            <Route path="search" element={<SearchComponent/>}/>
+                            <Route path="edit-profile" element={<EditProfileComponent/>}/>
                         </Routes>
                     </div>
                     <div className="d-none d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4">

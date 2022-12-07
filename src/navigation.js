@@ -1,13 +1,14 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router";
+import "./index.css"
 
 const Navigation = () => {
     const {pathname} = useLocation()
     const paths = pathname.split('/')
     return (
         <div className="list-group">
-            <Link to="/" className={`list-group-item`}>
+            <Link to="/home" className={`list-group-item`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="fa-solid fa-hand-holding-heart"></i>
@@ -17,13 +18,25 @@ const Navigation = () => {
                     </div>
                 </div>
             </Link>
-            <Link to="/" className={`list-group-item ${paths[1] === ''?'active': ''}`}>
+
+            <Link to="/home" className={`list-group-item ${paths[1] === 'home'?'active': ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="fa-solid fa-house-chimney"></i>
                     </div>
                     <div className="col-2">
                         <span className="d-none d-xl-block">Home</span>
+                    </div>
+                </div>
+            </Link>
+
+            <Link to="/search" className={`list-group-item ${paths[1] === 'search'?'active': ''}`}>
+                <div className="row">
+                    <div className="col-1">
+                        <i className="fa-solid fa-search"></i>
+                    </div>
+                    <div className="col-2">
+                        <span className="d-none d-xl-block">Search</span>
                     </div>
                 </div>
             </Link>
@@ -50,24 +63,13 @@ const Navigation = () => {
                 </div>
             </Link>
 
-            <Link to="/signup" className={`list-group-item ${paths[1] === 'signup'?'active': ''}`}>
+            <Link to="/register" className={`list-group-item ${paths[1] === 'register'?'active': ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="fa-solid fa-user-plus"></i>
                     </div>
                     <div className="col-2">
-                        <span className="d-none d-xl-block">Sign Up</span>
-                    </div>
-                </div>
-            </Link>
-
-            <Link to="/aboutus" className={`list-group-item ${paths[1] === 'aboutus'?'active': ''}`}>
-                <div className="row">
-                    <div className="col-1">
-                        <i className="fa-solid fa-circle-info"></i>
-                    </div>
-                    <div className="col-2">
-                        <span className="d-none d-xl-block">About Us</span>
+                        <span className="d-none d-xl-block">Register</span>
                     </div>
                 </div>
             </Link>
@@ -86,4 +88,4 @@ const Navigation = () => {
     )
 }
 
-export default Navigation
+export default Navigation;

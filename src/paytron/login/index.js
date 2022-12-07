@@ -15,7 +15,7 @@ const LoginComponent = () => {
                 <div className="row">
                     <div className="col-md-6 m-auto">
                         <div className="card my-5">
-                            <form action={"/"} className="card-body p-lg-4"
+                            <form action={"/home"} className="card-body p-lg-4"
                                   style={{backgroundColor: "#ebf2fa"}}>
                                 <div className="text-center">
                                     <img
@@ -43,7 +43,7 @@ const LoginComponent = () => {
                                 <div id="log-reg"
                                      className="form-text text-center mb-3 text-dark">Not
                                     Registered?&nbsp;
-                                    <a href="/signup" className="fw-bold text-decoration-none"
+                                    <a href="/register" className="fw-bold text-decoration-none"
                                        style={{color: "#5a4099"}}>
                                         Create an Account</a>
                                 </div>

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import validator from 'validator';
 import PasswordChecklist from "react-password-checklist"
 
-const SignUpComponent = () => {
+const RegisterComponent = () => {
     const [values, setValues] = useState({
                                              password: "",
                                              showPassword: false,
@@ -180,7 +180,7 @@ const SignUpComponent = () => {
                                 <div className="text-center">
                                     <input type="submit"
                                            className="btn btn-color px-5 mb-3 w-100 text-white"
-                                           value="Sign Up" style={{backgroundColor: "#5a4099"}}>
+                                           value="Register" style={{backgroundColor: "#5a4099"}}>
                                     </input>
                                 </div>
                                 <div id="reg-log"
@@ -197,4 +197,4 @@ const SignUpComponent = () => {
         </>
     );
 };
-export default SignUpComponent;
+export default RegisterComponent;
