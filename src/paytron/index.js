@@ -8,8 +8,10 @@ import EditProfileComponent from "./edit-profile";
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
 import requestsReducer from "./requests/requests-reducer";
+import interestsReducer from "./interests/interests-reducer";
+import InterestsList from "./interests/interests-list";
 
-const store = configureStore({reducer: {requests: requestsReducer}});
+const store = configureStore({reducer: {interests: interestsReducer, requests: requestsReducer}});
 
 function Paytron() {
     return (
@@ -31,7 +33,7 @@ function Paytron() {
                     </div>
                     <div className="d-none d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4"
                          style={{overflowY: "scroll", height: "95vh"}}>
-                        {/*<WhoToFollowList/>*/}
+                        <InterestsList/>
                     </div>
                 </div>
             </div>
