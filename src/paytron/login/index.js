@@ -62,6 +62,11 @@ const LoginComponent = () => {
                                        style={{color: "#5a4099"}}>
                                         Create an Account</a>
                                 </div>
+                                <div id="log-guest"
+                                     className="form-text text-center mb-3 text-dark">Continue as&nbsp;
+                                    <a href="/home" className="fw-bold text-decoration-none"
+                                       style={{color: "#5a4099"}}>Guest</a>
+                                </div>
                             </form>
                         </div>
                     </div>
