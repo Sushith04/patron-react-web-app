@@ -6,10 +6,24 @@ import ProfileComponent from "./profile";
 import SearchComponent from "./search";
 import EditProfileComponent from "./edit-profile";
 import InterestsList from "./interests/interests-list";
+import InterestedList from "./interested/interested-list";
 import ProtectedRoute from "./protected-routes";
+import {useSelector} from "react-redux";
+import AdminComponent from "./admin";
 
 function Paytron() {
-    return (
+    const {currentUser} = useSelector((state) => state.users)
+    if (currentUser) {
+        var isNgo = (currentUser.role === "NGO");
+    }
+    if (currentUser && currentUser.role === "ADMIN") {
+        return (
+            <div className="container">
+                <AdminComponent/>
+            </div>
+        )
+    } else {
+        return (
             <div>
                 <div className="row">
                     <div className="col-2 col-lg-1 col-xl-2">
@@ -35,11 +49,12 @@ function Paytron() {
                     </div>
                     <div className="d-none d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4"
                          style={{overflowY: "scroll", height: "95vh"}}>
-                        <InterestsList/>
+                        {isNgo ? <InterestedList/> : <InterestsList/>}
                     </div>
                 </div>
             </div>
-    );
+        );
+    }
 }
 
 export default Paytron;

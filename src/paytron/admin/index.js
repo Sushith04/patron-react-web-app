@@ -1,7 +1,20 @@
 import React from "react";
 import "./index.css";
+import {logoutThunk} from "../services/users-thunk";
+import {Navigate} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
 
 const AdminComponent = () => {
+    const {logoutComp} = useSelector((state) => state.users)
+    const dispatch = useDispatch();
+    const logoutBtnHandle = () => {
+        dispatch(logoutThunk());
+    }
+
+    if (logoutComp===true) {
+        return (<Navigate to={"/login"}/>)
+    }
+
     return (
         <div>
             <h1 className="wd-header text-center fw-bold">DASHBOARD</h1>
@@ -71,7 +84,14 @@ const AdminComponent = () => {
                 </table>
             </div>
             <footer>
-                <a href="/login" className="wd-bottom-button">Log Out</a>
+                <input
+                    type="button"
+                    className="btn btn-color px-5 mb-3 w-100 text-white"
+                    style={{backgroundColor: "#5a4099"}}
+                    onClick={logoutBtnHandle}
+                    value="Login"
+                >
+                </input>
             </footer>
         </div>
     );
