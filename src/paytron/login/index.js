@@ -28,7 +28,6 @@ const LoginComponent = () => {
                                         <select
                                             className="form-control"
                                             id="designation"
-                                            name="Your Designation"
                                             type="text"
                                             placeholder="Your Designation"
                                             required>

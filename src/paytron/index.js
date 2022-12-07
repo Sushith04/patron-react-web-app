@@ -11,7 +11,7 @@ import EditProfileComponent from "./edit-profile";
 // const store = configureStore(
 //     {reducer: {who: whoReducer, tuitsData: tuitsReducer, currentProfile: profileReducer}});
 
-function Tuiter() {
+function Paytron() {
     return (
         // <Provider store={store}>
             <div>
@@ -38,4 +38,4 @@ function Tuiter() {
     );
 }
 
-export default Tuiter
+export default Paytron;
