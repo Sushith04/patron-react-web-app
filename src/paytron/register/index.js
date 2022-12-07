@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import validator from 'validator';
 import PasswordChecklist from "react-password-checklist"
 
@@ -26,6 +26,14 @@ const RegisterComponent = () => {
 
     const [showNGO, setShowNGO] = useState(false);
     const [showDonor, setShowDonor] = useState(false);
+
+    const autoCompleteRef = useRef();
+    const inputRef = useRef();
+    useEffect(() => {
+        autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+            inputRef.current
+        );
+    }, []);
 
     return (
         <>
@@ -62,6 +70,10 @@ const RegisterComponent = () => {
                                     <input type="tel" className="form-control" id="reg-phone"
                                            placeholder="Phone Number(10 digits)"
                                            pattern="[0-9]{10}" required/>
+                                </div>
+                                <div className="mb-3">
+                                    <input type="text" className="form-control" id="reg-address"
+                                           ref={inputRef} placeholder="Address" required/>
                                 </div>
                                 <div className="mb-3">
                                     <input type={values.showPassword ? "text" : "password"}
