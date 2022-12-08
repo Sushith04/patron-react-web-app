@@ -53,7 +53,7 @@ const Navigation = () => {
                 </div>
             </Link>
 
-            <Link to="/profile" className={`list-group-item ${!currentUser ? 'd-none' : ''} ${paths[1] === 'profile'?'active': ''}`}>
+            <Link to="/profile" className={`list-group-item nav-item ${!currentUser ? 'd-none' : ''} ${paths[1] === 'profile'?'active': ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="fa-solid fa-user"></i>
@@ -64,7 +64,7 @@ const Navigation = () => {
                 </div>
             </Link>
 
-            <Link to="/login" className={`list-group-item ${currentUser ? 'd-none' : ''} ${paths[1] === 'login'?'active': ''}`}>
+            <Link to="/login" className={`list-group-item nav-item ${currentUser ? 'd-none' : ''} ${paths[1] === 'login'?'active': ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="fa-solid fa-sign-in"></i>
@@ -75,7 +75,7 @@ const Navigation = () => {
                 </div>
             </Link>
 
-            <Link to="/register" className={`list-group-item ${currentUser ? 'd-none' : ''} ${paths[1] === 'register'?'active': ''}`}>
+            <Link to="/register" className={`list-group-item nav-item ${currentUser ? 'd-none' : ''} ${paths[1] === 'register'?'active': ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="fa-solid fa-user-plus"></i>
@@ -86,7 +86,7 @@ const Navigation = () => {
                 </div>
             </Link>
 
-            <Link onClick={logoutBtnHandle} className={`list-group-item ${!currentUser ? 'd-none' : ''} ${paths[1] === 'logout'?'active': ''}`}>
+            <Link onClick={logoutBtnHandle} className={`list-group-item nav-item ${!currentUser ? 'd-none' : ''} ${paths[1] === 'logout'?'active': ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="fa-solid fa-sign-out"></i>

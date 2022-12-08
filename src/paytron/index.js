@@ -29,7 +29,7 @@ function Paytron() {
                     <div className="col-2 col-lg-1 col-xl-2">
                         <Navigation/>
                     </div>
-                    <div className="col-10 col-lg-7 col-xl-6"
+                    <div className="col-10 col-lg-8 col-xl-7"
                          style={{overflowY: "scroll", height: "95vh"}}>
                         <Routes>
                             <Route index element={<HomeComponent/>}/>
@@ -47,7 +47,7 @@ function Paytron() {
                             }/>
                         </Routes>
                     </div>
-                    <div className="d-none d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4"
+                    <div className="d-none d-sm-none d-md-none d-lg-block col-lg-3 col-xl-3"
                          style={{overflowY: "scroll", height: "95vh"}}>
                         {isNgo ? <InterestedList/> : <InterestsList/>}
                     </div>

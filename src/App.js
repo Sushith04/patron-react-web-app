@@ -9,11 +9,13 @@ import {Provider} from "react-redux";
 import CurrentUser from "./paytron/current-user";
 import interestsReducer from "./paytron/interests/interests-reducer";
 import requestsReducer from "./paytron/requests/requests-reducer";
+import interestedReducer from "./paytron/interested/interested-reducer";
 
 const store = configureStore({
                                  reducer: {
                                      users: usersReducer,
                                      interests: interestsReducer,
+                                     interested: interestedReducer,
                                      requests: requestsReducer,
                                  }
                              })
