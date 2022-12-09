@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const BASE_API_URL = 'http://localhost:4000'
 
 const api = axios.create({withCredentials: true});
@@ -12,4 +13,9 @@ export const createRequest = async (request) => {
 export const getRequests = async () => {
     const response = await api.get(`${BASE_API_URL}/requests`)
     return response.data
+}
+
+export const updateRequest = async (request) => {
+    const response = await axios.put(`${BASE_API_URL}/updateRequest/${request._id}`, request);
+    return response.data;
 }

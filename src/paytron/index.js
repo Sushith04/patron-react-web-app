@@ -10,6 +10,7 @@ import InterestedList from "./interested/interested-list";
 import {useSelector} from "react-redux";
 import AdminComponent from "./admin";
 import ProtectedRoute from "./protected-routes";
+import ViewProfileComponent from "./view-profile";
 
 function Paytron() {
     const {currentUser} = useSelector((state) => state.users)
@@ -46,6 +47,8 @@ function Paytron() {
                                     <EditProfileComponent/>
                                 </ProtectedRoute>
                             }/>
+                            <Route path="view-profile"
+                                   element={<ViewProfileComponent profileUser={currentUser}/>}/>
                         </Routes>
                     </div>
                     <div className="d-none d-sm-none d-md-none d-lg-block col-lg-3 col-xl-3"

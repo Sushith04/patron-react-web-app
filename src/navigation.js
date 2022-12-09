@@ -64,17 +64,6 @@ const Navigation = () => {
                 </div>
             </Link>
 
-            <Link to="/edit-profile" className={`list-group-item nav-item ${!currentUser ? 'd-none' : ''} ${paths[1] === 'edit-profile'?'active': ''}`}>
-                <div className="row">
-                    <div className="col-1">
-                        <i className="fa-solid fa-user"></i>
-                    </div>
-                    <div className="col-2">
-                        <span className="d-none d-xl-block">EProfile</span>
-                    </div>
-                </div>
-            </Link>
-
             <Link to="/login" className={`list-group-item nav-item ${currentUser ? 'd-none' : ''} ${paths[1] === 'login'?'active': ''}`}>
                 <div className="row">
                     <div className="col-1">

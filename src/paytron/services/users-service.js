@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const BASE_API_URL = 'http://localhost:4000'
 
 const api = axios.create({withCredentials: true});
@@ -35,6 +36,10 @@ export const pendingNGOs = async () => {
 
 export const approveUser = async (uid) => {
     const response = await axios.post(`${BASE_API_URL}/updateUser/${uid}`);
-    console.log(response.data)
+    return response.data;
+}
+
+export const updateProfile = async (profile) => {
+    const response = await axios.put(`${BASE_API_URL}/updateProfile/${profile._id}`, profile);
     return response.data;
 }

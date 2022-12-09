@@ -1,17 +1,9 @@
 import React from "react";
-import {useSelector} from "react-redux";
-import {Navigate} from "react-router";
-import {Link} from "react-router-dom";
 
-const ProfileComponent = () => {
-    const {currentUser} = useSelector((state) => state.users);
+const ViewProfileComponent = (profileUser) => {
 
-    if (!currentUser) {
-        return (<Navigate to={"/login"}/>)
-    }
-
-    if (currentUser) {
-        var isNgo = (currentUser.role === "NGO");
+    if (profileUser) {
+        var isNgo = (profileUser.profileUser.role === "NGO");
     }
 
     return (
@@ -24,30 +16,24 @@ const ProfileComponent = () => {
                             <div className="card-body text-center">
                                 <div className="mt-3 mb-4">
                                     <img
-                                        src={currentUser.profilePicture}
+                                        src={profileUser.profileUser.profilePicture}
                                         className="rounded-circle img-fluid"
                                         style={{width: "164px", height: "164px"}} alt="profilePic"/>
                                 </div>
-                                <h4 className="mb-2 mt-3">{currentUser.name}</h4>
-                                <p className="text-muted mb-4">@{currentUser.username}
+                                <h4 className="mb-2 mt-3">{profileUser.profileUser.name}</h4>
+                                <p className="text-muted mb-4">@{profileUser.profileUser.username}
                                     <span
-                                        className="mx-2">|</span>{isNgo ? currentUser.role
-                                                                        : currentUser.donorProf}</p>
-                                <Link to="/edit-profile" type="button"
-                                      className="btn btn-rounded text-white"
-                                      style={{backgroundColor: "#5a4099"}}>
-                                    Edit Profile
-                                </Link>
+                                        className="mx-2">|</span>{isNgo
+                                                                  ? profileUser.profileUser.role
+                                                                  : profileUser.profileUser.donorProf}
+                                </p>
                                 <div
                                     className="row mt-5 mb-2 justify-content-center text-secondary">
                                     <div className="col-auto">
-                                        <i className="fa-solid fa-envelope"></i> &nbsp;{currentUser.email}
+                                        <i className="fa-solid fa-envelope"></i> &nbsp;{profileUser.profileUser.email}
                                     </div>
                                     <div className="col-auto">
-                                        <i className="fa-solid fa-phone"></i> &nbsp;{currentUser.phone}
-                                    </div>
-                                    <div className="col-auto">
-                                        <i className="fa-solid fa-location-dot"></i> &nbsp;{currentUser.address}
+                                        <i className="fa-solid fa-location-dot"></i> &nbsp;{profileUser.profileUser.address}
                                     </div>
                                 </div>
                                 <div
@@ -55,22 +41,20 @@ const ProfileComponent = () => {
                                     <div className="px-3">
                                         <p className="text-muted mb-0">{isNgo ? "NGO Head"
                                                                               : "Maximum Donation"}</p>
-                                        <p className="mb-2 h5">{isNgo ? currentUser.ngoHead : "$ "
-                                                                                              + currentUser.donorMaxDon}</p>
+                                        <p className="mb-2 h5">{isNgo
+                                                                ? profileUser.profileUser.ngoHead
+                                                                : "$ "
+                                                                  + profileUser.profileUser.donorMaxDon}</p>
                                     </div>
                                 </div>
                                 <div className="mb-2 mt-4">
                                     <span className="fw-bold">{isNgo ? "What we do: " : ""}</span>
-                                    <span>{isNgo ? currentUser.ngoDesc : ""}</span>
+                                    <span>{isNgo ? profileUser.profileUser.ngoDesc : ""}</span>
                                 </div>
                                 <div className="mb-2">
                                     <span className="fw-bold">{isNgo ? "Primary cause: "
                                                                      : ""}</span>
-                                    <span>{isNgo ? currentUser.ngoCause : ""}</span>
-                                </div>
-                                <div className="mb-2 mt-4">
-                                    <span className="fw-bold">{isNgo ? "" : "Salary: "}</span>
-                                    <span>{isNgo ? "" : currentUser.donorSalary}</span>
+                                    <span>{isNgo ? profileUser.profileUser.ngoCause : ""}</span>
                                 </div>
                             </div>
                         </div>
@@ -80,4 +64,4 @@ const ProfileComponent = () => {
         </>
     );
 };
-export default ProfileComponent;
+export default ViewProfileComponent;

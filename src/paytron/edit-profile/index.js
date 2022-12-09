@@ -3,11 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import Form from 'react-bootstrap/Form';
 // import {updateProfile} from "../profile/profile-reducer";
 import {Link} from "react-router-dom";
+import {updateProfileThunk} from "../services/users-thunk";
+import validator from "validator";
 
 const EditProfileComponent = () => {
     const {currentUser} = useSelector((state) => state.users);
 
-    let [name, setName] = useState(currentUser.name);
+    let [email, setEmail] = useState(currentUser.email);
     let [profilePicture, setProfilePicture] = useState(currentUser.profilePicture);
     let [address, setAddress] = useState(currentUser.address);
     let [phone, setPhone] = useState(currentUser.phone);
@@ -18,6 +20,18 @@ const EditProfileComponent = () => {
     let [donorSalary, setdonorSalary] = useState(currentUser.donorSalary);
     let [donorMaxDon, setdonorMaxDon] = useState(currentUser.donorMaxDon);
 
+    const [emailError, setEmailError] = useState('');
+    const validateEmail = (e) => {
+        setEmail(e.target.value);
+        var email = e.target.value;
+        if (!validator.isEmail(email)) {
+            setEmailError('Enter valid Email')
+        } else {
+            setEmailError('')
+            setEmail(email);
+        }
+    };
+
     function initialize() {
         var input = document.getElementById('editAddress');
         new window.google.maps.places.Autocomplete(input);
@@ -26,8 +40,8 @@ const EditProfileComponent = () => {
     window.addEventListener('load', initialize)
 
     const dispatch = useDispatch();
-    const saveProfile = (id) => {
-        // dispatch(updateProfile(id));
+    const saveProfile = (updatedProfile) => {
+        dispatch(updateProfileThunk(updatedProfile));
     }
 
     if (currentUser) {
@@ -51,10 +65,13 @@ const EditProfileComponent = () => {
                                 <form className="card-body p-lg-4">
                                     <div className="mb-3">
                                         <Form.Control type="text" className="form-control"
-                                                      id="editName"
-                                                      placeholder="Name" value={name} required
-                                                      onChange={(event) => setName(
-                                                          event.target.value)}/>
+                                                      id="editMail"
+                                                      placeholder="Email" value={email} required
+                                                      onChange={(e) => validateEmail(e)}/>
+                                        <span style={{
+                                            fontWeight: 'bold',
+                                            color: 'red',
+                                        }}>{emailError}</span>
                                     </div>
                                     <div className="mb-3">
                                         <Form.Control type="tel" className="form-control"
@@ -133,7 +150,7 @@ const EditProfileComponent = () => {
                                                 onClick={() =>
                                                     saveProfile({
                                                                     ...currentUser,
-                                                                    "name": name,
+                                                                    "email": email,
                                                                     "address": address,
                                                                     "phone": phone,
                                                                     "ngoHead": ngoHead,
@@ -149,8 +166,8 @@ const EditProfileComponent = () => {
                                     <div id="reg-log"
                                          className="form-text text-center mb-3 text-dark">Do not
                                         want to make any changes?&nbsp;
-                                        <a href="/profile" className="fw-bold text-decoration-none"
-                                           style={{color: "#5a4099"}}> Go back</a>
+                                        <Link to="/profile" className="fw-bold text-decoration-none"
+                                           style={{color: "#5a4099"}}> Go back</Link>
                                     </div>
                                 </form>
                             </div>

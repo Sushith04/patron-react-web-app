@@ -21,8 +21,7 @@ const AdminComponent = () => {
     if (logoutComp===true) {
         return (<Navigate to={"/login"}/>)
     }
-
-
+    
     const approveUser = (user) => {
         dispatch(approveUserThunk(user._id))
     }
@@ -31,7 +30,7 @@ const AdminComponent = () => {
         <div>
             <h1 className="wd-header text-center fw-bold">DASHBOARD</h1>
             <h2>NGO's</h2>
-            <div className="table-responsive">
+            <div className="table-responsive" style={{height: "30vh", overflowY: "scroll"}}>
                 <table className="table table-striped table-bordered mb-5">
                     <thead className="wd-th">
                     <tr className="text-nowrap">
@@ -72,7 +71,7 @@ const AdminComponent = () => {
             </div>
 
             <h2>Donors</h2>
-            <div className="table-responsive">
+            <div className="table-responsive" style={{height: "30vh", overflowY: "scroll"}}>
                 <table className="table table-striped table-bordered mb-5">
                     <thead className="wd-th">
                     <tr className="text-nowrap">
@@ -114,10 +113,10 @@ const AdminComponent = () => {
             <footer>
                 <input
                     type="button"
-                    className="btn btn-color px-5 mb-3 w-100 text-white"
+                    className="btn btn-color text-white wd-bottom-button"
                     style={{backgroundColor: "#5a4099"}}
                     onClick={logoutBtnHandle}
-                    value="Login"
+                    value="Logout"
                 >
                 </input>
             </footer>

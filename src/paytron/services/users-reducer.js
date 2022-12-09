@@ -1,12 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
+    approveUserThunk,
     loginThunk,
     logoutThunk,
+    pendingDonorsThunk,
+    pendingNGOsThunk,
     profileThunk,
     registerThunk,
-    pendingNGOsThunk,
-    pendingDonorsThunk,
-    approveUserThunk
+    updateProfileThunk
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -15,11 +16,12 @@ const usersReducer = createSlice({
                                          users: [],
                                          pendingNGOs: [],
                                          pendingDonors: [],
-                                         loginError : "",
+                                         loginError: "",
                                          registerError: "",
                                          registerSuccess: false,
                                          logoutComp: false,
-                                         currentUser: null
+                                         currentUser: null,
+                                         loading: true,
                                      },
                                      extraReducers: {
                                          [logoutThunk.fulfilled]: (state, action) => {
@@ -27,15 +29,25 @@ const usersReducer = createSlice({
                                              state.logoutComp = true;
                                              state.loginError = "";
                                          },
+                                         [profileThunk.pending]: (state, action) => {
+                                             state.currentUser = null
+                                             state.loading = true
+                                         },
                                          [profileThunk.fulfilled]: (state, action) => {
                                              state.currentUser = action.payload
+                                             state.loading = false
+                                         },
+                                         [profileThunk.rejected]: (state, action) => {
+                                             state.currentUser = null
+                                             state.loading = false
                                          },
                                          [registerThunk.fulfilled]: (state, action) => {
                                              state.registerError = "";
                                              state.registerSuccess = true;
                                          },
                                          [registerThunk.rejected]: (state, action) => {
-                                             state.registerError = "Registration failed, either given username exists or you are yet to fill in all the details";
+                                             state.registerError =
+                                                 "Registration failed, either given username exists or you are yet to fill in all the details";
                                          },
                                          [loginThunk.fulfilled]: (state, action) => {
                                              state.currentUser = action.payload
@@ -43,7 +55,8 @@ const usersReducer = createSlice({
                                              state.logoutComp = false;
                                          },
                                          [loginThunk.rejected]: (state, action) => {
-                                             state.loginError = "Ensure your credentials are valid, or wait for Admin Approval";
+                                             state.loginError =
+                                                 "Ensure your credentials are valid, or wait for Admin Approval";
                                          },
                                          [pendingNGOsThunk.fulfilled]: (state, action) => {
                                              state.pendingNGOs = action.payload;
@@ -57,6 +70,9 @@ const usersReducer = createSlice({
                                              state.pendingNGOs = state.pendingNGOs
                                                  .filter(t => t._id !== action.payload._id)
                                          },
+                                         [updateProfileThunk.fulfilled]: (state, action) => {
+                                             state.currentUser = action.payload;
+                                         }
                                      }
                                  })
 
