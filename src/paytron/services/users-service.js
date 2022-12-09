@@ -22,3 +22,19 @@ export const profile = async () => {
     const response = await api.post(`${BASE_API_URL}/profile`)
     return response.data
 }
+
+export const pendingDonors = async () => {
+    const response = await api.get(`${BASE_API_URL}/pendingDonors`)
+    return response.data
+}
+
+export const pendingNGOs = async () => {
+    const response = await api.get(`${BASE_API_URL}/pendingNGOs`)
+    return response.data
+}
+
+export const approveUser = async (uid) => {
+    const response = await axios.post(`${BASE_API_URL}/updateUser/${uid}`);
+    console.log(response.data)
+    return response.data;
+}

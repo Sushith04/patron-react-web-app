@@ -3,18 +3,23 @@ import {
     loginThunk,
     logoutThunk,
     profileThunk,
-    registerThunk
+    registerThunk,
+    pendingNGOsThunk,
+    pendingDonorsThunk,
+    approveUserThunk
 } from "./users-thunk";
 
 const usersReducer = createSlice({
                                      name: 'users',
                                      initialState: {
                                          users: [],
+                                         pendingNGOs: [],
+                                         pendingDonors: [],
                                          loginError : "",
                                          registerError: "",
                                          registerSuccess: false,
                                          logoutComp: false,
-                                         currentUser: null,
+                                         currentUser: null
                                      },
                                      extraReducers: {
                                          [logoutThunk.fulfilled]: (state, action) => {
@@ -38,8 +43,20 @@ const usersReducer = createSlice({
                                              state.logoutComp = false;
                                          },
                                          [loginThunk.rejected]: (state, action) => {
-                                             state.loginError = "Invalid username or password";
-                                         }
+                                             state.loginError = "Ensure your credentials are valid, or wait for Admin Approval";
+                                         },
+                                         [pendingNGOsThunk.fulfilled]: (state, action) => {
+                                             state.pendingNGOs = action.payload;
+                                         },
+                                         [pendingDonorsThunk.fulfilled]: (state, action) => {
+                                             state.pendingDonors = action.payload;
+                                         },
+                                         [approveUserThunk.fulfilled]: (state, action) => {
+                                             state.pendingDonors = state.pendingDonors
+                                                 .filter(t => t._id !== action.payload._id)
+                                             state.pendingNGOs = state.pendingNGOs
+                                                 .filter(t => t._id !== action.payload._id)
+                                         },
                                      }
                                  })
 

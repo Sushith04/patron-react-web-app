@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import { login, logout, profile, register} from "./users-service";
+import { login, logout, profile, register, pendingNGOs, pendingDonors, approveUser} from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
     'logout',
@@ -21,3 +21,17 @@ export const registerThunk = createAsyncThunk(
     async (user) => await register(user)
 )
 
+export const pendingNGOsThunk = createAsyncThunk(
+    'pendingNGOs',
+    async () => await pendingNGOs()
+)
+
+export const pendingDonorsThunk = createAsyncThunk(
+    'pendingDonors',
+    async () => await pendingDonors()
+)
+
+export const approveUserThunk = createAsyncThunk(
+    'approveUser',
+    async (uid) => await approveUser(uid)
+)

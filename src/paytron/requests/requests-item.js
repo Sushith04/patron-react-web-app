@@ -1,16 +1,10 @@
 import React from "react";
 import RequestsStats from "./requests-stats";
-// import {useDispatch} from "react-redux";
-// import {deleteTuit} from "../tuits-reducer";
+
 
 const RequestsItem = ({request}) => {
-    // const dispatch = useDispatch();
-    // const deleteTuitHandler = (id) => {
-    //     dispatch(deleteTuit(id));
-    // }
 
     function getTimeInterval(date) {
-        // Math.floor(Date.now() / 1000)
         let seconds = Math.floor(Date.now() / 1000) - date;
         let unit = "second";
         let direction = "ago";
@@ -44,14 +38,14 @@ const RequestsItem = ({request}) => {
         <li className="list-group-item">
             <div className="row">
                 <div className="col">
-                    {/*<i className="bi bi-x-lg float-end"></i>*/}
-                    {/*onClick={() => deleteTuitHandler(request._id)}></i>*/}
                     <div className="fw-bolder mb-2">{request.name}
                         <span className="text-secondary fw-normal"> @{request.userName}
                             &nbsp;&middot; {getTimeInterval(request.time)}</span>
                     </div>
                     <div className="mb-3">{request.request}</div>
-                    <div><img src={request.image} width="100%" alt="post_image"/></div>
+                    <div className={request.image===""? 'd-none': ''}
+                    ><img src={request.image} width="100%" alt="post_image"/>
+                    </div>
                     <RequestsStats request={request}/>
                 </div>
             </div>

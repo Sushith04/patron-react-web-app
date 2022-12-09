@@ -1,22 +1,15 @@
 // import {createTuitThunk} from "../../services/tuits-thunks";
-// import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
 // import axios from "axios";
+import {createRequestThunk} from "../requests/requests-thunk"
+import {Navigate} from "react-router";
 
 const CreateRequest = () => {
+    const {currentUser} = useSelector((state) => state.users)
     let [createRequest, setCreateRequest] = useState('');
 
-    // const dispatch = useDispatch();
-    // const tuitClickHandler = () => {
-    //     const newTuit = {
-    //         tuit: whatsHappening,
-    //         userName: "NASA",
-    //         image: "/images/nasa.jpg",
-    //         time: "now",
-    //         handle: "@nasa"
-    //     }
-    //     dispatch(createTuitThunk(newTuit));
-    // }
+    const dispatch = useDispatch();
 
     const state = {
         selectedFile: null
@@ -24,20 +17,29 @@ const CreateRequest = () => {
 
     const onFileChange = event => {
         this.setState({selectedFile: event.target.files[0]});
-
     };
 
     const onFileUpload = () => {
+        if (!currentUser) {
+            window.alert("Login to create a request");
+            return
+        }
         const formData = new FormData();
-        formData.append(
-            "myFile",
-            state.selectedFile,
-            state.selectedFile.name
-        );
-
+        // formData.append(
+        //     "myFile",
+        //     state.selectedFile,
+        //     state.selectedFile.name
+        // );
         console.log(state.selectedFile);
-
         // axios.post("api/uploadfile", formData);
+        const newRequest = {
+            name: currentUser.name,
+            userName: currentUser.username,
+            time: Math.floor(Date.now() / 1000),
+            request: createRequest
+        }
+        setCreateRequest("");
+        dispatch(createRequestThunk(newRequest));
     };
 
     if (state.selectedFile) {
@@ -55,14 +57,12 @@ const CreateRequest = () => {
                         <button
                             className="rounded-pill btn float-end mt-2 ps-3 pe-3 fw-bold text-white"
                             style={{backgroundColor: "#5a4099"}}
-                            // onClick={tuitClickHandler}
                             onClick={onFileUpload}>
                             Request
                         </button>
                         <div className="pt-3" style={{color: "#5a4099", fontSize: "14px"}}>
                             <input type="file" onChange={onFileChange}/>
                             <span>File Name: {state.selectedFile.name}</span>
-                            {/*<i className="bi bi-card-image me-3" onClick={}></i>*/}
                         </div>
                     </div>
                 </div>
@@ -86,13 +86,11 @@ const CreateRequest = () => {
                         <button
                             className="rounded-pill btn float-end mt-2 ps-3 pe-3 fw-bold text-white"
                             style={{backgroundColor: "#5a4099"}}
-                            // onClick={tuitClickHandler}
                             onClick={onFileUpload}>
                             Request
                         </button>
                         <div className="pt-3" style={{color: "#5a4099", fontSize: "14px"}}>
                             <input type="file" onChange={onFileChange}/>
-                            {/*<i className="bi bi-card-image me-3" onClick={}></i>*/}
                         </div>
                     </div>
                 </div>

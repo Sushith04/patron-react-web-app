@@ -1,13 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import RequestsItem from "./requests-item";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getRequestsThunk} from "./requests-thunk";
 
 const RequestsList = () => {
-    const requestsArray = useSelector(state => state.requests)
+    const {requests, loading} = useSelector(state => state.requests)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getRequestsThunk())
+    }, [])
     return (
         <ul className="list-group">
             {
-                requestsArray.map(request => <RequestsItem key={request._id} request={request}/>)
+                loading &&
+                <li className="list-group-item">
+                    Loading...
+                </li>
+            }
+            {
+                requests.map(request => <RequestsItem key={request._id} request={request}/>)
             }
         </ul>
     );

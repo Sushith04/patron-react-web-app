@@ -1,18 +1,30 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./index.css";
-import {logoutThunk} from "../services/users-thunk";
+import {logoutThunk, pendingDonorsThunk, pendingNGOsThunk, approveUserThunk} from "../services/users-thunk";
 import {Navigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 
 const AdminComponent = () => {
-    const {logoutComp} = useSelector((state) => state.users)
+    const {logoutComp, pendingNGOs, pendingDonors} = useSelector((state) => state.users)
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(pendingDonorsThunk())
+    }, []);
+    useEffect(() => {
+        dispatch(pendingNGOsThunk())
+    }, [])
     const logoutBtnHandle = () => {
         dispatch(logoutThunk());
     }
 
     if (logoutComp===true) {
         return (<Navigate to={"/login"}/>)
+    }
+
+
+    const approveUser = (user) => {
+        dispatch(approveUserThunk(user._id))
     }
 
     return (
@@ -35,18 +47,26 @@ const AdminComponent = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td className="text-nowrap">Name</td>
-                        <td className="text-nowrap">Username</td>
-                        <td className="text-nowrap">Email Address</td>
-                        <td className="text-nowrap">Phone Number</td>
-                        <td className="text-nowrap">NGO Head Name</td>
-                        <td>NGO Description</td>
-                        <td>Primary Cause</td>
-                        <td><button className="wd-approve">Approve</button></td>
-                        <td><button className="wd-reject">Reject</button></td>
-                    </tr>
+                    {
+                        pendingNGOs.map((ngo, index) => {
+                            return (
+                                <tr key={ngo._id}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td className="text-nowrap">{ngo.name}</td>
+                                    <td className="text-nowrap">{ngo.username}</td>
+                                    <td className="text-nowrap">{ngo.email}</td>
+                                    <td className="text-nowrap">{ngo.phone}</td>
+                                    <td className="text-nowrap">{ngo.ngoHead}</td>
+                                    <td>{ngo.ngoDesc}</td>
+                                    <td>{ngo.ngoCause}</td>
+                                    <td>
+                                        <button className="wd-approve" onClick={() => approveUser(ngo)}>Approve</button>
+                                    </td>
+                                    <td><button className="wd-reject">Reject</button></td>
+                                </tr>
+                            );
+                        })
+                    }
                     </tbody>
                 </table>
             </div>
@@ -68,18 +88,26 @@ const AdminComponent = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td className="text-nowrap">Name</td>
-                        <td className="text-nowrap">Username</td>
-                        <td className="text-nowrap">Email Address</td>
-                        <td className="text-nowrap">Phone Number</td>
-                        <td className="text-nowrap">Profession</td>
-                        <td className="text-nowrap">Salary</td>
-                        <td className="text-nowrap">Max Donation</td>
-                        <td><button className="wd-approve">Approve</button></td>
-                        <td><button className="wd-reject">Reject</button></td>
-                    </tr>
+                    {
+                        pendingDonors.map((donor, index) => {
+                            return (
+                                <tr key={donor._id}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td className="text-nowrap">{donor.name}</td>
+                                    <td className="text-nowrap">{donor.username}</td>
+                                    <td className="text-nowrap">{donor.email}</td>
+                                    <td className="text-nowrap">{donor.phone}</td>
+                                    <td className="text-nowrap">{donor.donorProf}</td>
+                                    <td>{donor.donorSalary}</td>
+                                    <td>{donor.donorMaxDon}</td>
+                                    <td>
+                                        <button className="wd-approve" onClick={() => approveUser(donor)}>Approve</button>
+                                    </td>
+                                    <td><button className="wd-reject">Reject</button></td>
+                                </tr>
+                            );
+                        })
+                    }
                     </tbody>
                 </table>
             </div>
