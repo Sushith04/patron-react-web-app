@@ -10,6 +10,7 @@ import CurrentUser from "./paytron/current-user";
 import interestsReducer from "./paytron/interests/interests-reducer";
 import requestsReducer from "./paytron/requests/requests-reducer";
 import interestedReducer from "./paytron/interested/interested-reducer";
+import profileReducer from "./paytron/profile/profile-reducer";
 
 const store = configureStore({
                                  reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
                                      interests: interestsReducer,
                                      interested: interestedReducer,
                                      requests: requestsReducer,
+                                     currentProfile: profileReducer
                                  }
                              })
 

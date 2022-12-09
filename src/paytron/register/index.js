@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import validator from 'validator';
 import PasswordChecklist from "react-password-checklist"
 import {registerThunk} from "../services/users-thunk";
@@ -33,13 +33,12 @@ const RegisterComponent = () => {
     const [showNGO, setShowNGO] = useState(false);
     const [showDonor, setShowDonor] = useState(false);
 
-    const autoCompleteRef = useRef();
-    const inputRef = useRef();
-    useEffect(() => {
-        autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-            inputRef.current
-        );
-    }, []);
+    function initialize() {
+        var input = document.getElementById('reg-address');
+        new window.google.maps.places.Autocomplete(input);
+    }
+
+    window.addEventListener('load', initialize)
 
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
@@ -52,6 +51,7 @@ const RegisterComponent = () => {
     const [donorProf, setdonorProf] = useState("");
     const [donorSalary, setdonorSalary] = useState("");
     const [donorMaxDon, setdonorMaxDon] = useState("");
+
     const handleRegisterBtn = () => {
         const role = showNGO? "NGO": "DONOR";
         dispatch(registerThunk({name, username,
@@ -119,7 +119,6 @@ const RegisterComponent = () => {
                                 </div>
                                 <div className="mb-3">
                                     <input type="text" className="form-control" id="reg-address"
-                                           ref={inputRef}
                                            placeholder="Address"
                                            value={address}
                                            onChange={(e) => setAddress(e.target.value)}

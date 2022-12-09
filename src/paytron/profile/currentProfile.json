@@ -1,0 +1,16 @@
+{
+  "_id":123,
+  "name":"Sushith Kumar Reddy Dharmavarapu Banu",
+  "username":"sushith04",
+  "profilePicture": "/images/p1.jpg",
+  "email":"sushithreddy21@gmail.com",
+  "phone":"9494395722",
+  "address":"135 marcella",
+  "role":"NGO",
+  "ngoHead":"",
+  "ngoDesc":"",
+  "ngoCause":"",
+  "donorProf":"Student",
+  "donorSalary": 30000,
+  "donorMaxDon": 500
+}

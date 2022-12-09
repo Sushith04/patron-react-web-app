@@ -7,9 +7,9 @@ import SearchComponent from "./search";
 import EditProfileComponent from "./edit-profile";
 import InterestsList from "./interests/interests-list";
 import InterestedList from "./interested/interested-list";
-import ProtectedRoute from "./protected-routes";
 import {useSelector} from "react-redux";
 import AdminComponent from "./admin";
+import ProtectedRoute from "./protected-routes";
 
 function Paytron() {
     const {currentUser} = useSelector((state) => state.users)
@@ -30,20 +30,21 @@ function Paytron() {
                         <Navigation/>
                     </div>
                     <div className="col-10 col-lg-8 col-xl-7"
-                         style={{overflowY: "scroll", height: "95vh"}}>
+                         style={{overflowY: "scroll", height: "100vh"}}>
                         <Routes>
                             <Route index element={<HomeComponent/>}/>
                             <Route path="home" element={<HomeComponent/>}/>
+
                             <Route path="profile" element={
                                 <ProtectedRoute>
                                     <ProfileComponent/>
-                                </ProtectedRoute>}/>
+                                </ProtectedRoute>
                             }/>
                             <Route path="search" element={<SearchComponent/>}/>
                             <Route path="edit-profile" element={
                                 <ProtectedRoute>
                                     <EditProfileComponent/>
-                                </ProtectedRoute>}/>
+                                </ProtectedRoute>
                             }/>
                         </Routes>
                     </div>
