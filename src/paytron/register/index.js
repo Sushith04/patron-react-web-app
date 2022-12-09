@@ -5,7 +5,6 @@ import {registerThunk} from "../services/users-thunk";
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router";
 
-
 const RegisterComponent = () => {
     const {currentUser, registerError, registerSuccess} = useSelector((state) => state.users)
     const [values, setValues] = useState({
@@ -33,13 +32,6 @@ const RegisterComponent = () => {
     const [showNGO, setShowNGO] = useState(false);
     const [showDonor, setShowDonor] = useState(false);
 
-    function initialize() {
-        var input = document.getElementById('reg-address');
-        new window.google.maps.places.Autocomplete(input);
-    }
-
-    window.addEventListener('load', initialize)
-
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -52,12 +44,26 @@ const RegisterComponent = () => {
     const [donorSalary, setdonorSalary] = useState("");
     const [donorMaxDon, setdonorMaxDon] = useState("");
 
+    const initialize = (e) => {
+        setAddress(e.target.value)
+        var autocomplete = new window.google.maps.places.Autocomplete(
+            (document.getElementById('reg-address')),
+            {types: ['geocode']});
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+        var place = this.getPlace();
+        setAddress(place.formatted_address);
+    }
+
     const handleRegisterBtn = () => {
-        const role = showNGO? "NGO": "DONOR";
-        dispatch(registerThunk({name, username,
+        const role = showNGO ? "NGO" : "DONOR";
+        dispatch(registerThunk({
+                                   name, username,
                                    password, email, phone, address,
                                    role, ngoHead, ngoDesc, ngoCause,
-            donorProf, donorSalary, donorMaxDon
+                                   donorProf, donorSalary, donorMaxDon
                                }))
     }
 
@@ -65,7 +71,7 @@ const RegisterComponent = () => {
         return (<Navigate to={"/home"}/>)
     }
 
-    if (registerSuccess===true) {
+    if (registerSuccess === true) {
         return (<Navigate to={"/login"}/>)
     }
 
@@ -121,7 +127,7 @@ const RegisterComponent = () => {
                                     <input type="text" className="form-control" id="reg-address"
                                            placeholder="Address"
                                            value={address}
-                                           onChange={(e) => setAddress(e.target.value)}
+                                           onChange={(e) => initialize(e)}
                                            required/>
                                 </div>
                                 <div className="mb-3">
@@ -132,7 +138,8 @@ const RegisterComponent = () => {
                                     <input type={values.showPassword ? "text" : "password"}
                                            className="form-control"
                                            onChange={e => setPasswordAgain(e.target.value)}
-                                           id="reg-pass-confirm" placeholder=" Confirm Password" required/>
+                                           id="reg-pass-confirm" placeholder=" Confirm Password"
+                                           required/>
                                     <label><input className="mt-2" type="checkbox"
                                                   onClick={handleClickShowPassword}/> Show Password</label>
                                     <PasswordChecklist
@@ -251,11 +258,11 @@ const RegisterComponent = () => {
                                 }
                                 <div className="text-center">
                                     <input
-                                           type="button"
-                                           className="btn btn-color px-5 mb-3 w-100 text-white"
-                                           style={{backgroundColor: "#5a4099"}}
-                                           onClick={handleRegisterBtn}
-                                           value="Register"
+                                        type="button"
+                                        className="btn btn-color px-5 mb-3 w-100 text-white"
+                                        style={{backgroundColor: "#5a4099"}}
+                                        onClick={handleRegisterBtn}
+                                        value="Register"
                                     >
                                     </input>
                                 </div>

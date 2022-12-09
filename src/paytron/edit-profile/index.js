@@ -32,12 +32,18 @@ const EditProfileComponent = () => {
         }
     };
 
-    function initialize() {
-        var input = document.getElementById('editAddress');
-        new window.google.maps.places.Autocomplete(input);
+    const initialize = (e) => {
+        setAddress(e.target.value)
+        var autocomplete = new window.google.maps.places.Autocomplete(
+            (document.getElementById('editAddress')),
+            {types: ['geocode']});
+        autocomplete.addListener('place_changed', fillInAddress);
     }
 
-    window.addEventListener('load', initialize)
+    function fillInAddress() {
+        var place = this.getPlace();
+        setAddress(place.formatted_address);
+    }
 
     const dispatch = useDispatch();
     const saveProfile = (updatedProfile) => {
@@ -85,8 +91,7 @@ const EditProfileComponent = () => {
                                         <Form.Control type="text" className="form-control"
                                                       id="editAddress"
                                                       placeholder="Address" value={address} required
-                                                      onChange={(event) => setAddress(
-                                                          event.target.value)}/>
+                                                      onChange={(event) => initialize(event)}/>
                                     </div>
 
                                     <div className="mb-3">
@@ -167,7 +172,7 @@ const EditProfileComponent = () => {
                                          className="form-text text-center mb-3 text-dark">Do not
                                         want to make any changes?&nbsp;
                                         <Link to="/profile" className="fw-bold text-decoration-none"
-                                           style={{color: "#5a4099"}}> Go back</Link>
+                                              style={{color: "#5a4099"}}> Go back</Link>
                                     </div>
                                 </form>
                             </div>
