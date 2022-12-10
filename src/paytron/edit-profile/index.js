@@ -10,7 +10,6 @@ const EditProfileComponent = () => {
     const {currentUser} = useSelector((state) => state.users);
 
     let [email, setEmail] = useState(currentUser.email);
-    let [profilePicture, setProfilePicture] = useState(currentUser.profilePicture);
     let [address, setAddress] = useState(currentUser.address);
     let [phone, setPhone] = useState(currentUser.phone);
     let [ngoHead, setNgoHead] = useState(currentUser.ngoHead);
@@ -63,10 +62,7 @@ const EditProfileComponent = () => {
                              style={{borderRadius: "15px", backgroundColor: "#ebf2fa"}}>
                             <div className="card-body text-center">
                                 <div className="mt-3 mb-4">
-                                    <img
-                                        src={currentUser.profilePicture}
-                                        className="rounded-circle img-fluid"
-                                        style={{width: "164px", height: "164px"}} alt="profilePic"/>
+                                    <h3 className="fw-bold" style={{color: "#5a4099"}}>Edit Profile</h3>
                                 </div>
                                 <form className="card-body p-lg-4">
                                     <div className="mb-3">
@@ -145,7 +141,6 @@ const EditProfileComponent = () => {
                                                                     onChange={(event) => setdonorMaxDon(
                                                                         event.target.value)}/>}
                                     </div>
-
                                     <div className="text-center">
                                         <Link to="../profile">
                                             <button

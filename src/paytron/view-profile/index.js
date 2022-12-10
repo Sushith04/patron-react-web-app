@@ -18,12 +18,6 @@ const ViewProfileComponent = ({route, navigate}) => {
                         <div className="card"
                              style={{borderRadius: "15px", backgroundColor: "#ebf2fa"}}>
                             <div className="card-body text-center">
-                                <div className="mt-3 mb-4">
-                                    <img
-                                        src={location.state.id.profilePicture}
-                                        className="rounded-circle img-fluid"
-                                        style={{width: "164px", height: "164px"}} alt="profilePic"/>
-                                </div>
                                 <h4 className="mb-2 mt-3">{location.state.id.name}</h4>
                                 <p className="text-muted mb-4">@{location.state.id.username}
                                     <span

@@ -10,6 +10,10 @@ const Navigation = () => {
     const {currentUser, logoutComp} = useSelector((state) => state.users)
     const {pathname} = useLocation()
     const paths = pathname.split('/')
+    if (paths.length === 1 || paths[1] ==='') {
+        paths[1]='home';
+    }
+
     const dispatch = useDispatch();
     const logoutBtnHandle = () => {
         dispatch(logoutThunk());
@@ -31,7 +35,7 @@ const Navigation = () => {
                 </div>
             </Link>
 
-            <Link to="/home" className={`list-group-item nav-item ${paths[1] === 'home'?'active': ''}`}>
+            <Link to="/home" className={`list-group-item nav-item ${paths[1] === 'home' ?'active': ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="fa-solid fa-house-chimney"></i>

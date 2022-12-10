@@ -6,16 +6,23 @@ const SearchList = ({searchResult}) => {
     const navigate = useNavigate();
     const {currentUser} = useSelector((state) => state.users);
 
-    function shift() {
-        if (!currentUser) {
-            window.alert("Please login to view profile.")
-            return
-        }
+    if (!currentUser) {
+        var isGuest = true;
+    }
 
-        if (searchResult._id === currentUser._id) {
-            navigate(`/profile`);
-        } else {
+    function shift() {
+        // if (!currentUser) {
+        //     window.alert("Please login to view profile.")
+        //     return
+        // }
+
+        if (isGuest) {
             navigate(`/view-profile`, {state: {id: searchResult}});
+        }
+        else if (searchResult._id !== currentUser._id) {
+            navigate(`/view-profile`, {state: {id: searchResult}});
+        } else {
+            navigate(`/profile`);
         }
     }
 

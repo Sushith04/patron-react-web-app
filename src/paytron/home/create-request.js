@@ -6,6 +6,11 @@ const CreateRequest = () => {
     const {currentUser} = useSelector((state) => state.users)
     let [requestTitle, setRequestTitle] = useState('')
     let [createRequest, setCreateRequest] = useState('');
+    let [requestDonation, setRequestDonation] = useState(0);
+
+    if (currentUser) {
+        var isDonor = (currentUser.role === "DONOR");
+    }
 
     const dispatch = useDispatch();
 
@@ -14,51 +19,61 @@ const CreateRequest = () => {
             window.alert("Login to create a request");
             return
         }
+        if (requestTitle.length === 0 || createRequest.length === 0) {
+
+        }
         const newRequest = {
             name: currentUser.name,
             userName: currentUser.username,
             time: Math.floor(Date.now() / 1000),
             title: requestTitle,
-            request: createRequest
+            request: createRequest,
+            donation: requestDonation
         }
         setRequestTitle("");
         setCreateRequest("");
+        setRequestDonation(0);
         dispatch(createRequestThunk(newRequest));
     };
 
     return (
         <form>
-        <div className="row">
-            <div className="col-2 col-md-1">
-                <img src="/images/donate.jpg" width={40} alt="profile_pic"/>
-            </div>
-            <div className="col-10 col-md-11">
-                <input type="text" value={requestTitle} placeholder="Request title"
-                       className="form-control mb-2" style={{boxShadow: "none"}}
-                       onChange={(event) => setRequestTitle(event.target.value)} required/>
+            {isDonor ? "" :
+             <div>
+                 <div className="row">
+                     <div className="col-7 col-sm-8 col-md-9">
+                         <input type="text" value={requestTitle} placeholder="Request title"
+                                className="form-control mb-2" style={{boxShadow: "none"}}
+                                onChange={(event) => setRequestTitle(event.target.value)} required/>
+                     </div>
+                     <div className="col-5 col-sm-4 col-md-3">
+                         <input type="number" value={requestDonation} placeholder="Donation"
+                                className="form-control mb-2" style={{boxShadow: "none"}}
+                                onChange={(event) => setRequestDonation(event.target.value)}
+                                required />
+                     </div>
+                 </div>
+                 <div className="row">
+                     <div className="col-12">
                 <textarea value={createRequest} placeholder="Make a request"
                           className="form-control" style={{boxShadow: "none"}}
                           onChange={(event) => setCreateRequest(event.target.value)} required>
                 </textarea>
-                <div>
-                    <button
-                        className="rounded-pill btn float-end mt-2 ps-3 pe-3 fw-bold text-white"
-                        style={{backgroundColor: "#5a4099"}}
-                        type="submit"
-                        onClick={onFileUpload}>
-                        Request
-                    </button>
-                    <div className="pt-3" style={{color: "#5a4099", fontSize: "14px"}}>
-                        <input type="file" name="upload_file" accept="image/*" id="input-file"
-                            // onChange={onFileChange}
-                        />
-                    </div>
-                </div>
-            </div>
-            <div className="col-12">
-                <hr/>
-            </div>
-        </div>
+                     </div>
+                     <div>
+                         <button
+                             className="rounded-pill btn float-end mt-2 ps-3 pe-3 fw-bold text-white"
+                             style={{backgroundColor: "#5a4099"}}
+                             type="submit"
+                             onClick={onFileUpload}>
+                             Request
+                         </button>
+                     </div>
+                 </div>
+                 <div className="col-12">
+                     <hr/>
+                 </div>
+             </div>}
         </form>
     );
 }

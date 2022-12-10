@@ -23,23 +23,15 @@ const ProfileComponent = () => {
                              style={{borderRadius: "15px", backgroundColor: "#ebf2fa"}}>
                             <div className="card-body text-center">
                                 <div className="mt-3 mb-4">
-                                    <img
-                                        src={currentUser.profilePicture}
-                                        className="rounded-circle img-fluid"
-                                        style={{width: "164px", height: "164px"}} alt="profilePic"/>
+                                    <h3 className="fw-bold" style={{color: "#5a4099"}}>Profile</h3>
                                 </div>
-                                <h4 className="mb-2 mt-3">{currentUser.name}</h4>
-                                <p className="text-muted mb-4">@{currentUser.username}
+                                <h4>{currentUser.name}</h4>
+                                <p className="text-muted">@{currentUser.username}
                                     <span
                                         className="mx-2">|</span>{isNgo ? currentUser.role
                                                                         : currentUser.donorProf}</p>
-                                <Link to="/edit-profile" type="button"
-                                      className="btn btn-rounded text-white"
-                                      style={{backgroundColor: "#5a4099"}}>
-                                    Edit Profile
-                                </Link>
                                 <div
-                                    className="row mt-5 mb-2 justify-content-center text-secondary">
+                                    className="row justify-content-center text-secondary">
                                     <div className="col-auto">
                                         <i className="fa-solid fa-envelope"></i> &nbsp;{currentUser.email}
                                     </div>
@@ -51,15 +43,15 @@ const ProfileComponent = () => {
                                     </div>
                                 </div>
                                 <div
-                                    className="d-flex justify-content-center text-center mt-5 mb-2">
-                                    <div className="px-3">
+                                    className="d-flex justify-content-center text-center mt-4 mb-2">
+                                    <div>
                                         <p className="text-muted mb-0">{isNgo ? "NGO Head"
                                                                               : "Maximum Donation"}</p>
                                         <p className="mb-2 h5">{isNgo ? currentUser.ngoHead : "$ "
                                                                                               + currentUser.donorMaxDon}</p>
                                     </div>
                                 </div>
-                                <div className="mb-2 mt-4">
+                                <div className="mb-2 mt-3">
                                     <span className="fw-bold">{isNgo ? "What we do: " : ""}</span>
                                     <span>{isNgo ? currentUser.ngoDesc : ""}</span>
                                 </div>
@@ -68,10 +60,15 @@ const ProfileComponent = () => {
                                                                      : ""}</span>
                                     <span>{isNgo ? currentUser.ngoCause : ""}</span>
                                 </div>
-                                <div className="mb-2 mt-4">
+                                <div className="mb-4 mt-4">
                                     <span className="fw-bold">{isNgo ? "" : "Salary: "}</span>
                                     <span>{isNgo ? "" : currentUser.donorSalary}</span>
                                 </div>
+                                <Link to="/edit-profile" type="button"
+                                      className="btn btn-rounded text-white"
+                                      style={{backgroundColor: "#5a4099"}}>
+                                    Edit Profile
+                                </Link>
                             </div>
                         </div>
                     </div>
