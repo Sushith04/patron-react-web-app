@@ -15,7 +15,12 @@ export const getRequests = async () => {
     return response.data
 }
 
-export const updateRequest = async (request) => {
-    const response = await axios.put(`${BASE_API_URL}/updateRequest/${request._id}`, request);
+export const updateRequestLikes = async (request) => {
+    const response = await axios.put(`${BASE_API_URL}/updateRequestLikes/${request._id}/${request.userid}`);
+    return response.data;
+}
+
+export const updateRequestInterests = async (request) => {
+    const response = await axios.put(`${BASE_API_URL}/updateRequestInterests/${request._id}/${request.userid}`);
     return response.data;
 }

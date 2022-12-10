@@ -1,5 +1,10 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {createRequest, getRequests, updateRequest} from "./requests-service";
+import {
+    createRequest,
+    getRequests,
+    updateRequestInterests,
+    updateRequestLikes
+} from "./requests-service";
 
 export const createRequestThunk = createAsyncThunk(
     'createRequest',
@@ -11,7 +16,12 @@ export const getRequestsThunk = createAsyncThunk(
     async () => await getRequests()
 )
 
-export const updateRequestThunk = createAsyncThunk(
-    'updateRequests',
-    async (request) => await updateRequest(request)
+export const updateRequestLikesThunk = createAsyncThunk(
+    'updateRequestLikes',
+    async (request) => await updateRequestLikes(request)
+)
+
+export const updateRequestInterestsThunk = createAsyncThunk(
+    'updateRequestLikes',
+    async (request) => await updateRequestInterests(request)
 )

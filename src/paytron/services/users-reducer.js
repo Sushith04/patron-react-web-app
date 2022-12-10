@@ -24,7 +24,7 @@ const usersReducer = createSlice({
                                          currentUser: null,
                                          loading: true,
                                          searchResults: [],
-                                         isThere: false
+                                         isThere: false,
                                      },
                                      extraReducers: {
                                          [logoutThunk.fulfilled]: (state, action) => {

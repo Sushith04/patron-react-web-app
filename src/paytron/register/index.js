@@ -116,7 +116,7 @@ const RegisterComponent = () => {
                                     }}>{emailError}</span>
                                 </div>
                                 <div className="mb-3">
-                                    <input type="tel" className="form-control" id="reg-phone"
+                                    <input type="number" className="form-control" id="reg-phone"
                                            placeholder="Phone Number(10 digits)"
                                            pattern="[0-9]{10}"
                                            value={phone}

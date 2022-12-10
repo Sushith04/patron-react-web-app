@@ -5,7 +5,9 @@ const InterestsItem = ({interest}) => {
         <li className="list-group-item">
             <div className="row">
                 <div className="col">
-                    <div className="fw-bold">{interest.requestTitle}</div>
+                    <div className="fw-bold">{
+                      interest.title
+                    }</div>
                 </div>
             </div>
         </li>

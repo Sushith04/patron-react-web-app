@@ -49,3 +49,8 @@ export const getUsers = async (searchQuery) => {
     const response = await axios.get(`${BASE_API_URL}/getUsers/${searchQuery}`);
     return response.data;
 }
+
+export const getUserInterests = async (uid) => {
+    const response = await axios.get(`${BASE_API_URL}/getUserInterests/${uid}`);
+    return response.data;
+}

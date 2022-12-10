@@ -1,9 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
-import interestsArray from "./interests.json";
+import {getUserInterestsThunk} from "../services/users-thunk";
 
 const interestSlice = createSlice({
                                       name: "interests",
-                                      initialState: interestsArray
+                                      initialState: {
+                                          interestsArray: [],
+                                      },
+                                      extraReducers: {
+                                          [getUserInterestsThunk.fulfilled]: (state, action) => {
+                                              state.interestsArray = action.payload
+                                          }
+
+                                      }
                                   });
 
 export default interestSlice.reducer;

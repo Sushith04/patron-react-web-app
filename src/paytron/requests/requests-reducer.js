@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createRequestThunk, getRequestsThunk, updateRequestThunk} from './requests-thunk'
+import {createRequestThunk, getRequestsThunk, updateRequestLikesThunk} from './requests-thunk'
 
 const requestsSlice = createSlice({
                                       name: 'requests',
@@ -20,7 +20,7 @@ const requestsSlice = createSlice({
                                               state.loading = false
                                               state.requests = action.payload
                                           },
-                                          [updateRequestThunk.fulfilled]: (state, action) => {
+                                          [updateRequestLikesThunk.fulfilled]: (state, action) => {
                                               state.loading = false
                                               const requestNdx = state.requests
                                                   .findIndex((r) => r._id === action.payload._id)

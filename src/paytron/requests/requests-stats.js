@@ -1,42 +1,37 @@
 import React from "react";
-import {useSelector} from "react-redux";
-import {updateRequestThunk} from "./requests-thunk";
-// import {updateProfileThunk} from "../services/users-thunk";
-// import currentUser from "../current-user";
+import {useDispatch, useSelector} from "react-redux";
+import {updateRequestInterestsThunk, updateRequestLikesThunk} from "./requests-thunk";
 
 const RequestsStats = ({request}) => {
-    // if (request.liked) {
-    //     var isLiked = true;
-    // }
-    // if (request.interested) {
-    //     var isInterested = true;
-    // }
-    const {currentUser} = useSelector((state) => state.users)
+    const {currentUser} = useSelector((state) => state.users);
+
+    var isLiked = !!(currentUser && request.likedDonors.includes(currentUser._id));
+    var isInterested = !!(currentUser && request.interestedDonors.includes(currentUser._id));
+    const dispatch = useDispatch();
 
     const likedRequest = () => {
         if (!currentUser) {
             window.alert("Please login to perform operation")
+            return;
         }
         // Implemented liked & Unliked based on value in likedRequests of currentUser.
-        updateRequestThunk({
+        dispatch(updateRequestLikesThunk({
                                ...request,
-                               likes: request.likes + 1,
-                               liked: false
-                           })
+                               userid: currentUser._id
+                           }))
     }
 
     const interestedRequest = () => {
         if (!currentUser) {
             window.alert("Please login to perform operation")
+            return;
         }
-        updateRequestThunk({
-                               ...request,
-                               interests: request.interests - 1,
-                               interested: false
-                           })
+        dispatch(updateRequestInterestsThunk({
+                                                 ...request,
+                                                 userid: currentUser._id
+                                             }))
     }
 
-    // const dispatch = useDispatch();
     return (
         <div className="row text-muted mt-3">
             <div className="col align-content-center justify-content-center d-flex">
@@ -45,8 +40,8 @@ const RequestsStats = ({request}) => {
                           likedRequest()
                       }}
                 >Like:&nbsp;
-                    <span title="Like" style={{color: request.liked ? 'red' : 'gray'}}>
-                        <i className={request.liked ? "fa fa-heart" : "fa fa-regular fa-heart"}></i>
+                    <span title="Like" style={{color: isLiked ? 'red' : 'gray'}}>
+                        <i className={isLiked ? "fa fa-heart" : "fa fa-regular fa-heart"}></i>
                         &nbsp;{request.likes}</span></span>
             </div>
             <div className="col align-content-center justify-content-center d-flex">
@@ -56,8 +51,8 @@ const RequestsStats = ({request}) => {
                       }}
                 >Interested:&nbsp;
                     <span title="Interested"
-                          style={{color: request.interested ? '#FABD02' : 'gray'}}>
-                       <i className={request.interested ? "fa-solid fa-lightbulb"
+                          style={{color: isInterested ? '#FABD02' : 'gray'}}>
+                       <i className={isInterested ? "fa-solid fa-lightbulb"
                                                         : "fa fa-regular fa-lightbulb"}></i>
                         &nbsp;{request.interests}</span></span>
             </div>
