@@ -19,6 +19,7 @@ export const logout = async () => {
     const response = await api.post(`${BASE_API_URL}/logout`)
     return response.data
 }
+
 export const profile = async () => {
     const response = await api.post(`${BASE_API_URL}/profile`)
     return response.data
@@ -41,5 +42,10 @@ export const approveUser = async (uid) => {
 
 export const updateProfile = async (profile) => {
     const response = await axios.put(`${BASE_API_URL}/updateProfile/${profile._id}`, profile);
+    return response.data;
+}
+
+export const getUsers = async (searchQuery) => {
+    const response = await axios.get(`${BASE_API_URL}/getUsers/${searchQuery}`);
     return response.data;
 }

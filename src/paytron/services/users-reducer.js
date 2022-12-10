@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
     approveUserThunk,
+    getUsersThunk,
     loginThunk,
     logoutThunk,
     pendingDonorsThunk,
@@ -22,6 +23,8 @@ const usersReducer = createSlice({
                                          logoutComp: false,
                                          currentUser: null,
                                          loading: true,
+                                         searchResults: [],
+                                         isThere: false
                                      },
                                      extraReducers: {
                                          [logoutThunk.fulfilled]: (state, action) => {
@@ -72,6 +75,13 @@ const usersReducer = createSlice({
                                          },
                                          [updateProfileThunk.fulfilled]: (state, action) => {
                                              state.currentUser = action.payload;
+                                         },
+                                         [getUsersThunk.fulfilled]: (state, action) => {
+                                             state.searchResults = action.payload;
+                                             state.searchResults = state.searchResults
+                                                 .filter(s => s.username !== "admin")
+                                             state.searchResults.length > 0 ? (state.isThere = true)
+                                                                            : (state.isThere = false)
                                          }
                                      }
                                  })

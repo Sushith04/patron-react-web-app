@@ -47,8 +47,11 @@ function Paytron() {
                                     <EditProfileComponent/>
                                 </ProtectedRoute>
                             }/>
-                            <Route path="view-profile"
-                                   element={<ViewProfileComponent profileUser={currentUser}/>}/>
+                            <Route path="view-profile" element={
+                                <ProtectedRoute>
+                                    <ViewProfileComponent profileUser={currentUser}/>
+                                </ProtectedRoute>
+                            }/>
                         </Routes>
                     </div>
                     <div className="d-none d-sm-none d-md-none d-lg-block col-lg-3 col-xl-3"

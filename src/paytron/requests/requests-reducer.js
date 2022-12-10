@@ -1,12 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
-import requests from './requests.json';
 import {createRequestThunk, getRequestsThunk, updateRequestThunk} from './requests-thunk'
 
 const requestsSlice = createSlice({
                                       name: 'requests',
                                       initialState: {
                                           requests: [],
-                                          loading: false,
+                                          loading: false
                                       },
                                       extraReducers: {
                                           [createRequestThunk.fulfilled]: (state, action) => {
@@ -23,7 +22,6 @@ const requestsSlice = createSlice({
                                           },
                                           [updateRequestThunk.fulfilled]: (state, action) => {
                                               state.loading = false
-                                              //state.requests = action.payload
                                               const requestNdx = state.requests
                                                   .findIndex((r) => r._id === action.payload._id)
                                               state.requests[requestNdx] = {
