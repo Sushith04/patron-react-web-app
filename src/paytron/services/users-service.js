@@ -54,3 +54,8 @@ export const getUserInterests = async (uid) => {
     const response = await axios.get(`${BASE_API_URL}/getUserInterests/${uid}`);
     return response.data;
 }
+
+export const getNGOInterestedDonors = async (uid) => {
+    const response = await axios.get(`${BASE_API_URL}/getNGOInterestedDonors/${uid}`);
+    return response.data;
+}

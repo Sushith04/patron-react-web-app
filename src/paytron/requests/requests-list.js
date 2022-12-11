@@ -18,6 +18,12 @@ const RequestsList = () => {
                 </li>
             }
             {
+                requests.length===0 &&
+                <li className="list-group-item">
+                    No requests found.
+                </li>
+            }
+            {
                 requests.map(request => <RequestsItem key={request._id} request={request}/>)
             }
         </ul>

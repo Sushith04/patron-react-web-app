@@ -1,17 +1,30 @@
-import React from "react";
+import React, {useEffect} from "react";
 import InterestedItem from "./interested-item";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getNGOInterestedDonorThunk} from "../services/users-thunk";
 
-const InterestedList = () => {
-    //const interestedArray = useSelector((state) => state.interested);
+const InterestedList = ({currentUser}) => {
+    // Get interested donors of current logged in Donor.
+    const {interestedArray} = useSelector((state) => state.interested);
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getNGOInterestedDonorThunk(currentUser._id))
+    }, [])
+
     return (
         <ul className="list-group">
             <li className="list-group-item">
-                <h3 style={{color: "#5a4099"}}>Interested</h3>
+                <h3 style={{color: "#5a4099"}}>Interested Donors</h3>
             </li>
             {
-                // interestedArray.map(
-                //     interested => <InterestedItem key={interested._id} interested={interested}/>)
+                interestedArray.length===0 &&
+                <li className="list-group-item">
+                    No Interested Donors yet.
+                </li>
+            }
+            {
+                interestedArray.map(
+                    interestedDonor => <InterestedItem key={interestedDonor._id} interestedDonor={interestedDonor}/>)
             }
         </ul>
     );

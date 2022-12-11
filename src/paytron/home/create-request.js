@@ -20,7 +20,8 @@ const CreateRequest = () => {
             return
         }
         if (requestTitle.length === 0 || createRequest.length === 0) {
-
+            window.alert("Fill all the fields to make a request");
+            return;
         }
         const newRequest = {
             name: currentUser.name,
@@ -28,7 +29,8 @@ const CreateRequest = () => {
             time: Math.floor(Date.now() / 1000),
             title: requestTitle,
             request: createRequest,
-            donation: requestDonation
+            donation: requestDonation,
+            userid: currentUser._id
         }
         setRequestTitle("");
         setCreateRequest("");

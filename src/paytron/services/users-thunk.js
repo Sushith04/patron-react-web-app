@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {
-    approveUser, getUserInterests,
+    approveUser, getNGOInterestedDonors, getUserInterests,
     getUsers,
     login,
     logout,
@@ -59,4 +59,9 @@ export const getUsersThunk = createAsyncThunk(
 export const getUserInterestsThunk = createAsyncThunk(
     'getUserInterestsThunk',
     async (uid) => await getUserInterests(uid)
+)
+
+export const getNGOInterestedDonorThunk = createAsyncThunk(
+    'getNGOInterestedDonorThunk',
+    async (uid) => await getNGOInterestedDonors(uid)
 )

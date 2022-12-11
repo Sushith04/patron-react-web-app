@@ -1,9 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
-import interestedArray from "./interested.json";
+import {getNGOInterestedDonorThunk} from "../services/users-thunk";
 
 const interestedSlice = createSlice({
                                         name: "interested",
-                                        initialState: interestedArray
+                                        initialState: {
+                                            interestedArray: [],
+                                            interestedDonorArray: [],
+                                        },
+                                        extraReducers: {
+                                            [getNGOInterestedDonorThunk.fulfilled]: (state, action) => {
+                                                state.interestedArray = action.payload
+                                            }
+                                        }
                                     });
 
 export default interestedSlice.reducer;

@@ -18,7 +18,7 @@ const InterestsList = ({currentUser}) => {
             {
                 interestsArray.length===0 &&
                 <li className="list-group-item">
-                    Nothing to show
+                    No interests expressed yet.
                 </li>
             }
             {

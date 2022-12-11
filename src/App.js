@@ -10,12 +10,14 @@ import CurrentUser from "./paytron/current-user";
 import interestsReducer from "./paytron/interests/interests-reducer";
 import requestsReducer from "./paytron/requests/requests-reducer";
 import profileReducer from "./paytron/profile/profile-reducer";
+import interestedReducer from "./paytron/interested/interested-reducer";
 
 const store = configureStore({
                                  reducer: {
                                      users: usersReducer,
                                      interests: interestsReducer,
                                      requests: requestsReducer,
+                                     interested: interestedReducer,
                                      currentProfile: profileReducer
                                  }
                              })

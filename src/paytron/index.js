@@ -84,7 +84,7 @@ function Paytron() {
                     </div>
                     <div className="d-none d-sm-none d-md-none d-lg-block col-lg-3 col-xl-3"
                                       style={{overflowY: "scroll", height: "95vh"}}>
-                        {isNgo ? <InterestedList/> : <InterestsList currentUser={currentUser}/>}
+                        {isNgo ? <InterestedList currentUser={currentUser}/> : <InterestsList currentUser={currentUser}/>}
                     </div>
                 </div>}
             </div>

@@ -47,6 +47,12 @@ const AdminComponent = () => {
                     </thead>
                     <tbody>
                     {
+                        pendingNGOs.length===0 &&
+                        <div>
+                            No Pending NGO's to review
+                        </div>
+                    }
+                    {
                         pendingNGOs.map((ngo, index) => {
                             return (
                                 <tr key={ngo._id}>
@@ -87,6 +93,12 @@ const AdminComponent = () => {
                     </tr>
                     </thead>
                     <tbody>
+                    {
+                        pendingDonors.length===0 &&
+                        <div>
+                            No Pending Donors to review
+                        </div>
+                    }
                     {
                         pendingDonors.map((donor, index) => {
                             return (

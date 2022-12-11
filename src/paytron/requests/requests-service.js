@@ -5,7 +5,8 @@ const BASE_API_URL = 'http://localhost:4000'
 const api = axios.create({withCredentials: true});
 
 export const createRequest = async (request) => {
-    const response = await api.post(`${BASE_API_URL}/request`, request)
+    const uid = request.userid;
+    const response = await api.post(`${BASE_API_URL}/request/${uid}`, request)
     const newRequest = response.data
     return newRequest
 }
