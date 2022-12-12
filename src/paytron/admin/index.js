@@ -42,7 +42,7 @@ const AdminComponent = () => {
                         <th scope="col">NGO Head Name</th>
                         <th scope="col">NGO Description</th>
                         <th scope="col">Primary Cause</th>
-                        <th scope="col" colSpan={2}>Approve/Reject</th>
+                        <th scope="col" colSpan={2}>Approve</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -67,7 +67,6 @@ const AdminComponent = () => {
                                     <td>
                                         <button className="wd-approve" onClick={() => approveUser(ngo)}>Approve</button>
                                     </td>
-                                    <td><button className="wd-reject">Reject</button></td>
                                 </tr>
                             );
                         })
@@ -89,7 +88,7 @@ const AdminComponent = () => {
                         <th scope="col">Profession</th>
                         <th scope="col">Salary</th>
                         <th scope="col">Max Donation</th>
-                        <th scope="col" colSpan={2}>Approve/Reject</th>
+                        <th scope="col" colSpan={2}>Approve</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -114,7 +113,6 @@ const AdminComponent = () => {
                                     <td>
                                         <button className="wd-approve" onClick={() => approveUser(donor)}>Approve</button>
                                     </td>
-                                    <td><button className="wd-reject">Reject</button></td>
                                 </tr>
                             );
                         })

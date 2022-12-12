@@ -9,6 +9,10 @@ const RequestsStats = ({request}) => {
     var isInterested = !!(currentUser && request.interestedDonors.includes(currentUser._id));
     const dispatch = useDispatch();
 
+    if (currentUser) {
+        var isNgo = (currentUser.role === "NGO");
+    }
+
     const likedRequest = () => {
         if (!currentUser) {
             window.alert("Please login to perform operation")
@@ -35,16 +39,22 @@ const RequestsStats = ({request}) => {
     return (
         <div className="row text-muted mt-3">
             <div className="col align-content-center justify-content-center d-flex">
-                <span className="pe-2 fw-bold text-black"
+                {isNgo?
+                 <span className="pe-2 fw-bold text-black">Likes:&nbsp;
+                     <span style={{color: "red"}}>{request.likes}</span></span> :
+                 <span className="pe-2 fw-bold text-black"
                       onClick={() => {
                           likedRequest()
                       }}
                 >Like:&nbsp;
                     <span title="Like" style={{color: isLiked ? 'red' : 'gray'}}>
                         <i className={isLiked ? "fa fa-heart" : "fa fa-regular fa-heart"}></i>
-                        &nbsp;{request.likes}</span></span>
+                        &nbsp;{request.likes}</span></span>}
             </div>
             <div className="col align-content-center justify-content-center d-flex">
+                {isNgo?
+                 <span className="pe-2 fw-bold text-black">Interests:&nbsp;
+                     <span style={{color: "#FABD02"}}>{request.interests}</span></span> :
                 <span className="pe-2 fw-bold text-black"
                       onClick={() => {
                           interestedRequest()
@@ -54,7 +64,7 @@ const RequestsStats = ({request}) => {
                           style={{color: isInterested ? '#FABD02' : 'gray'}}>
                        <i className={isInterested ? "fa-solid fa-lightbulb"
                                                         : "fa fa-regular fa-lightbulb"}></i>
-                        &nbsp;{request.interests}</span></span>
+                        &nbsp;{request.interests}</span></span>}
             </div>
         </div>
     );

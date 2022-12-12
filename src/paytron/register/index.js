@@ -59,6 +59,70 @@ const RegisterComponent = () => {
 
     const handleRegisterBtn = () => {
         const role = showNGO ? "NGO" : "DONOR";
+        if (name.length === 0) {
+            window.alert("Please fill the name");
+            return;
+        }
+        if (username.length < 6) {
+            window.alert("Username must atleast consist of 6 characters");
+            return;
+        }
+        if (email.length === 0) {
+            window.alert("Please check the email input");
+            return;
+        }
+        if (phone.length < 10) {
+            window.alert("Please check the phone input");
+            return;
+        }
+        if (address.length === 0) {
+            window.alert("Please check address");
+            return;
+        }
+        if (password.length === 0) {
+            window.alert("Please fill password");
+            return;
+        }
+        if (passwordAgain.length === 0) {
+            window.alert("Please confirm the password");
+            return;
+        }
+        if (role.length === 0) {
+            window.alert("Please select the role");
+            return;
+        }
+        if (showNGO === false && showDonor === false) {
+            window.alert("Please select a role");
+        }
+        if (showNGO === true) {
+            if (ngoHead.length === 0) {
+                window.alert("Please fill NGO Head name");
+                return;
+            }
+            if (ngoDesc.length === 0) {
+                window.alert("Please fill the description");
+                return;
+            }
+            if (ngoCause.length === 0) {
+                window.alert("Please fill the cause");
+                return;
+            }
+        }
+        if (showDonor === true) {
+            if (donorProf.length === 0) {
+                window.alert("Please fill profession");
+                return;
+            }
+            if (donorSalary.length === 0) {
+                window.alert("Please fill the salary");
+                return;
+            }
+            if (donorMaxDon.length === 0) {
+                window.alert("Please fill maximum possible donation");
+                return;
+            }
+        }
+
         dispatch(registerThunk({
                                    name, username,
                                    password, email, phone, address,

@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 import AdminComponent from "./admin";
 import ProtectedRoute from "./protected-routes";
 import ViewProfileComponent from "./view-profile";
+import ViewRequestComponent from "./view-request";
 
 function Paytron() {
     const {currentUser} = useSelector((state) => state.users)
@@ -53,6 +54,9 @@ function Paytron() {
                              <Route path="view-profile" element={
                                      <ViewProfileComponent profileUser={currentUser}/>
                              }/>
+                             <Route path="view-request" element={
+                                 <ViewRequestComponent/>
+                             }/>
                          </Routes>
                      </div>
                  </div>  :
@@ -79,6 +83,9 @@ function Paytron() {
                             }/>
                             <Route path="view-profile" element={
                                     <ViewProfileComponent profileUser={currentUser}/>
+                            }/>
+                            <Route path="view-request" element={
+                                <ViewRequestComponent/>
                             }/>
                         </Routes>
                     </div>

@@ -45,6 +45,16 @@ export const updateProfile = async (profile) => {
     return response.data;
 }
 
+export const getUser = async (userName) => {
+    const response = await axios.get(`${BASE_API_URL}/getUser/${userName}`);
+    return response.data;
+}
+
+export const getProfileUser = async (userName) => {
+    const response = await axios.get(`${BASE_API_URL}/getProfileUser/${userName}`);
+    return response.data;
+}
+
 export const getUsers = async (searchQuery) => {
     const response = await axios.get(`${BASE_API_URL}/getUsers/${searchQuery}`);
     return response.data;

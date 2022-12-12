@@ -12,7 +12,7 @@ const InterestsList = ({currentUser}) => {
 
     return (
         <ul className="list-group">
-            <li className="list-group-item">
+            <li className="list-group-item text-center">
                 <h3 style={{color: "#5a4099"}}>Interests</h3>
             </li>
             {

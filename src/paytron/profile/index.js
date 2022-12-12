@@ -1,10 +1,21 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router";
 import {Link} from "react-router-dom";
+import {getNGOInterestedDonorThunk, getUserInterestsThunk} from "../services/users-thunk";
+import InterestsItem from "../interests/interests-item";
+import InterestedItem from "../interested/interested-item";
 
 const ProfileComponent = () => {
     const {currentUser} = useSelector((state) => state.users);
+    const {interestsArray} = useSelector((state) => state.interests);
+    const {interestedArray} = useSelector((state) => state.interested);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getUserInterestsThunk(currentUser._id))
+        dispatch(getNGOInterestedDonorThunk(currentUser._id))
+    }, [])
 
     if (!currentUser) {
         return (<Navigate to={"/login"}/>)
@@ -60,10 +71,45 @@ const ProfileComponent = () => {
                                                                      : ""}</span>
                                     <span>{isNgo ? currentUser.ngoCause : ""}</span>
                                 </div>
-                                <div className="mb-4 mt-4">
+                                <div className="mb-4">
                                     <span className="fw-bold">{isNgo ? "" : "Salary: "}</span>
                                     <span>{isNgo ? "" : currentUser.donorSalary}</span>
                                 </div>
+                                {
+                                    isNgo ?
+                                    <div className="d-block d-lg-none mb-4">
+                                        <h3>Interested</h3>
+                                        <ul className="list-group">
+                                            {
+                                                interestedArray.length === 0 &&
+                                                <li className="list-group-item">
+                                                    Nothing to show
+                                                </li>
+                                            }
+                                            {
+                                                interestedArray.map(
+                                                    interestedDonor => <InterestedItem key={interestedDonor._id}
+                                                                                       interestedDonor={interestedDonor}/>)
+                                            }
+                                        </ul>
+                                    </div> :
+                                    <div className="d-block d-lg-none mb-4">
+                                        <h3>Interests</h3>
+                                        <ul className="list-group">
+                                            {
+                                                interestsArray.length === 0 &&
+                                                <li className="list-group-item">
+                                                    Nothing to show
+                                                </li>
+                                            }
+                                            {
+                                                interestsArray.map(
+                                                    interest => <InterestsItem key={interest._id}
+                                                                               interest={interest}/>)
+                                            }
+                                        </ul>
+                                    </div>
+                                }
                                 <Link to="/edit-profile" type="button"
                                       className="btn btn-rounded text-white"
                                       style={{backgroundColor: "#5a4099"}}>

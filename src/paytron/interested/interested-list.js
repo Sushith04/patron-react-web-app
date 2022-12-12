@@ -13,7 +13,7 @@ const InterestedList = ({currentUser}) => {
 
     return (
         <ul className="list-group">
-            <li className="list-group-item">
+            <li className="list-group-item text-center">
                 <h3 style={{color: "#5a4099"}}>Interested Donors</h3>
             </li>
             {

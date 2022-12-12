@@ -2,8 +2,7 @@ import React, {useEffect} from "react";
 import RequestsStats from "./requests-stats";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getUsersThunk} from "../services/users-thunk";
-import {getRequestsThunk} from "./requests-thunk";
+import {getUserThunk} from "../services/users-thunk";
 
 const RequestsItem = ({request}) => {
 
@@ -41,56 +40,52 @@ const RequestsItem = ({request}) => {
     const navigate = useNavigate();
     const {currentUser} = useSelector((state) => state.users);
 
-    if (currentUser) {
-        var isNgo = (currentUser.role === "NGO");
-    }
-
-    const {searchResults} = useSelector((state) => state.users);
+    let {clickedUser} = useSelector((state) => state.users);
     const dispatch = useDispatch();
 
-    //use different api instead of getusersthunk() cos this api is returning
-    // array and viewprofile needs a single object
+    if (currentUser && request.userName === currentUser.username) {
+        var isCurrent = true;
+    }
+
+
     useEffect(() => {
-        dispatch(getUsersThunk(request.userName))
+        dispatch(getUserThunk(request.userName))
     }, []);
 
     function move() {
         if (currentUser && request.userName === currentUser.username) {
             navigate(`/profile`);
         } else {
-            console.log(searchResults)
-            navigate(`/view-profile`, {state: {id: searchResults}});
+            navigate(`/view-profile`, {state: {id: clickedUser}});
         }
+    }
+
+    function viewReq() {
+        navigate(`/view-request`, {state: {id: request}});
     }
 
     return (
         <li className="list-group-item">
             <div className="row">
                 <div className="col">
-                    <div onClick={move}  type="button">
-                        <div className="fw-bolder mb-3" style={{color: "#5a4099"}}>{request.name}
+                    <div>
+                        {isCurrent? <div className="fw-bolder mb-3" style={{color: "#5a4099"}} onClick={move} type="button">{request.name}
+                            <span className="text-secondary fw-normal"> @{request.userName}
+                                &nbsp;&middot; {getTimeInterval(request.time)}<span className="fa fa-x float-end"></span></span>
+                        </div>: <div className="fw-bolder mb-3" style={{color: "#5a4099"}} onClick={move} type="button">{request.name}
                             <span className="text-secondary fw-normal"> @{request.userName}
                                 &nbsp;&middot; {getTimeInterval(request.time)}</span>
-                        </div>
-                        <div className="text-center mb-3">
-                            <div className="float-start">
-                                <span className="mb-2 fw-bold">{request.title}</span>
+                        </div>}
+                        <div className="mb-3" type="button" onClick={viewReq}>
+                            <div>
+                                <p className="mb-3 fw-bold">{request.title}</p>
                             </div>
-                            {/*<div className="float-end">*/}
-                            {/*    {isNgo? "" : <button className="input-group-text text-white"*/}
-                            {/*                         style={{*/}
-                            {/*                             backgroundColor: "#5a4099"*/}
-                            {/*                         }}>Donate*/}
-                            {/*    </button>}*/}
-                            {/*</div>*/}
-                            <div className="d-inline-block">
-                            <span className="float-end">
-                            <span className="fw-bold">Donation: </span>{request.donation}</span>
+                            <div>
+                                <span className="fw-bold">Donation: </span>${request.donation}
                             </div>
                         </div>
-                        <div className="mb-3">{request.request}</div>
+                        <RequestsStats request={request}/>
                     </div>
-                    {isNgo ? "" : <RequestsStats request={request}/>}
                 </div>
             </div>
         </li>
