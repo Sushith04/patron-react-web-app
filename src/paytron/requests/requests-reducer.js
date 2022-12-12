@@ -1,5 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createRequestThunk, getRequestsThunk, updateRequestLikesThunk} from './requests-thunk'
+import {
+    createRequestThunk,
+    deleteRequestThunk,
+    getRequestsThunk,
+    updateRequestLikesThunk
+} from './requests-thunk'
 
 const requestsSlice = createSlice({
                                       name: 'requests',
@@ -28,7 +33,21 @@ const requestsSlice = createSlice({
                                                   ...state.requests[requestNdx],
                                                   ...action.payload
                                               }
-                                          }
+                                          },
+                                          [deleteRequestThunk.fulfilled]: (state, action) => {
+                                              state.loading = false
+                                              const requestNdx = state.requests
+                                                  .findIndex((r) => r._id === action.payload._id)
+                                              state.requests[requestNdx] = {
+                                                  ...state.requests[requestNdx],
+                                                  ...action.payload
+                                              }
+                                          },
+                                          [deleteRequestThunk.pending]: (state, action) => {
+                                              state.loading = true
+                                              state.requests = []
+                                          },
+                                          //deleteRequestThunk
                                       }
                                   });
 

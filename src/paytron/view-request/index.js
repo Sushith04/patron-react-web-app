@@ -39,7 +39,7 @@ const ViewRequestComponent = ({route, navigate}) => {
     }
 
     const location = useLocation();
-    console.log(location)
+    //console.log(location)
 
     const navigate2 = useNavigate();
     const {currentUser} = useSelector((state) => state.users);

@@ -1,6 +1,10 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {updateRequestInterestsThunk, updateRequestLikesThunk} from "./requests-thunk";
+import {
+    deleteRequestThunk,
+    updateRequestInterestsThunk,
+    updateRequestLikesThunk
+} from "./requests-thunk";
 
 const RequestsStats = ({request}) => {
     const {currentUser} = useSelector((state) => state.users);
@@ -36,6 +40,11 @@ const RequestsStats = ({request}) => {
                                              }))
     }
 
+    function deleteRequestBtn() {
+        // console.log("calling delete rq")
+        dispatch(deleteRequestThunk(request._id));
+    }
+
     return (
         <div className="row text-muted mt-3">
             <div className="col align-content-center justify-content-center d-flex">
@@ -66,6 +75,11 @@ const RequestsStats = ({request}) => {
                                                         : "fa fa-regular fa-lightbulb"}></i>
                         &nbsp;{request.interests}</span></span>}
             </div>
+            {isNgo?
+            <div className="col align-content-center justify-content-center d-flex" onClick={deleteRequestBtn}>
+                 <span className="pe-2 fw-bold text-black">Delete&nbsp;<span className="fa fa-trash"></span></span>
+            </div> : ""}
+
         </div>
     );
 }

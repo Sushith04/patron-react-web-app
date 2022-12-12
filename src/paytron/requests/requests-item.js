@@ -3,6 +3,7 @@ import RequestsStats from "./requests-stats";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserThunk} from "../services/users-thunk";
+import {deleteRequestThunk} from "./requests-thunk";
 
 const RequestsItem = ({request}) => {
 
@@ -43,11 +44,6 @@ const RequestsItem = ({request}) => {
     let {clickedUser} = useSelector((state) => state.users);
     const dispatch = useDispatch();
 
-    if (currentUser && request.userName === currentUser.username) {
-        var isCurrent = true;
-    }
-
-
     useEffect(() => {
         dispatch(getUserThunk(request.userName))
     }, []);
@@ -64,18 +60,16 @@ const RequestsItem = ({request}) => {
         navigate(`/view-request`, {state: {id: request}});
     }
 
+
     return (
         <li className="list-group-item">
             <div className="row">
                 <div className="col">
                     <div>
-                        {isCurrent? <div className="fw-bolder mb-3" style={{color: "#5a4099"}} onClick={move} type="button">{request.name}
-                            <span className="text-secondary fw-normal"> @{request.userName}
-                                &nbsp;&middot; {getTimeInterval(request.time)}<span className="fa fa-x float-end"></span></span>
-                        </div>: <div className="fw-bolder mb-3" style={{color: "#5a4099"}} onClick={move} type="button">{request.name}
+                        <div className="fw-bolder mb-3" style={{color: "#5a4099"}} onClick={move} type="button">{request.name}
                             <span className="text-secondary fw-normal"> @{request.userName}
                                 &nbsp;&middot; {getTimeInterval(request.time)}</span>
-                        </div>}
+                        </div>
                         <div className="mb-3" type="button" onClick={viewReq}>
                             <div>
                                 <p className="mb-3 fw-bold">{request.title}</p>

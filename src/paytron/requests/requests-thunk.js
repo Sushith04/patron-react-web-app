@@ -3,7 +3,8 @@ import {
     createRequest,
     getRequests,
     updateRequestInterests,
-    updateRequestLikes
+    updateRequestLikes,
+    deleteRequest
 } from "./requests-service";
 
 export const createRequestThunk = createAsyncThunk(
@@ -24,4 +25,9 @@ export const updateRequestLikesThunk = createAsyncThunk(
 export const updateRequestInterestsThunk = createAsyncThunk(
     'updateRequestLikes',
     async (request) => await updateRequestInterests(request)
+)
+
+export const deleteRequestThunk = createAsyncThunk(
+    'deleteRequest',
+    async (rid) => await deleteRequest(rid)
 )

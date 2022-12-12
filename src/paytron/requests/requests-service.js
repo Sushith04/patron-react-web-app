@@ -25,3 +25,8 @@ export const updateRequestInterests = async (request) => {
     const response = await axios.put(`${BASE_API_URL}/updateRequestInterests/${request._id}/${request.userid}`);
     return response.data;
 }
+
+export const deleteRequest = async (rid) => {
+    const response = await axios.delete(`${BASE_API_URL}/deleteRequest/${rid}`);
+    return response.data;
+}
